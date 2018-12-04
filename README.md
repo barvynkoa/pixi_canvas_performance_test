@@ -14,9 +14,13 @@ Open html file via WebStorm
 
 There are two html files there:
 
-multiple_canvas.html
-single_canvas.html
+* multiple_canvas.html
+* single_canvas.html
 
 Open them one by one and check FPS
 
 Have fun!
+
+---
+
+Based on: https://github.com/pixijs/bunny-mark
