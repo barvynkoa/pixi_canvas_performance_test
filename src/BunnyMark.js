@@ -5,6 +5,8 @@ import {Bunny} from "./Bunny";
 
 export class BunnyMark {
     constructor(domElementSelector) {
+        this.width = 1400;
+
         /**
          * Collection of currently running bunnies
          * @type Array<Bunny>
@@ -63,17 +65,22 @@ export class BunnyMark {
         return $(name);
     }
 
+    setBounds() {
+        let $stage = this.getStage('#stage');
+        this.bounds.right = $stage.width();
+        this.bounds.bottom = $stage.height();
+    }
+
     ready(startBunnyCount) {
         // Default bunnies to 100000
         if (typeof startBunnyCount === 'undefined') {
             startBunnyCount = 10000;
         }
 
+        this.setBounds();
+
         let $stage = this.getStage('#stage');
         let view = $stage.get(0);
-
-        this.bounds.right = $stage.width();
-        this.bounds.bottom = $stage.height();
 
         let options = {
             backgroundColor: 0xFFFFFF,
@@ -145,29 +152,11 @@ export class BunnyMark {
         for (let i = 0; i < num; i++) {
             let texture = this.textures[this.count % this.textures.length];
             let bunny = new Bunny(texture, this.bounds);
-            bunny.position.x = (this.count % 2) * 1400;
+            bunny.position.x = (this.count % 2) * this.width;
             this.bunnies.push(bunny);
             this.stage.addChild(bunny);
             this.count++;
         }
-        this.counter.html(this.count + " BUNNIES");
-    }
-
-    addBunniesTo12rects(num) {
-        for (let k = 0; k < 4; k++) {
-            for (let j = 0; j < 3; j++) {
-                for (let i = 0; i < num; i++) {
-                    let texture = this.textures[this.count % this.textures.length];
-                    let bunny = new Bunny(texture, this.boundList[j+3*k]);
-                    bunny.position.x = (this.count % 2) * 1400;
-                    this.bunnies.push(bunny);
-                    this.stage.addChild(bunny);
-                    this.count++;
-                }
-            }
-        }
-
-
         this.counter.html(this.count + " BUNNIES");
     }
 
